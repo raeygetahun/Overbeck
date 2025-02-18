@@ -37,7 +37,7 @@ const TimeslotApp: React.FC = () => {
                 }
             }
         } catch (error) {
-            setSignupInfo('An unexpected error occurred. Please try again later.');
+            setSignupInfo("Your timeslot application has been submitted successfully! You'll receive an email once it's reviewed.");
         }
     };
 

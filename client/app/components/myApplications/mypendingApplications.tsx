@@ -26,9 +26,31 @@ const AppliedTimeSlots = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const email = session?.data?.user?.email
-                const PendingApplications = await fetchPendingTimeslots(email as string); // Assuming 'Pending' is the status for Pending applications
-                setApplications(PendingApplications.data);
+                const PendingApplications = [
+                    {
+                        applicationId: '1',
+                        date: '2025-02-18T09:00:00Z',
+                        startTime: '2025-02-18T09:00:00Z',
+                        endTime: '2025-02-18T10:00:00Z',
+                        volunteerId: 'V123',
+                        status: 'Pending',
+                        note: 'First-time volunteer',
+                        volunteerName: 'John Doe',
+                    },
+                    {
+                        applicationId: '2',
+                        date: '2025-02-19T14:00:00Z',
+                        startTime: '2025-02-19T14:00:00Z',
+                        endTime: '2025-02-19T15:00:00Z',
+                        volunteerId: 'V124',
+                        status: 'Pending',
+                        note: 'Special request for time slot',
+                        volunteerName: 'Jane Smith',
+                    },
+                ];
+                // const email = session?.data?.user?.email
+                // const PendingApplications = await fetchPendingTimeslots(email as string); // Assuming 'Pending' is the status for Pending applications
+                setApplications(PendingApplications);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

@@ -16,6 +16,14 @@ const Signin: React.FC = () => {
 
     useEffect(() => {
         const checkAdminAndRedirect = async () => {
+
+            if(session?.user?.email == "demo@volunteer.com" ){
+                router.push('/volunteer/dashboard');
+            }
+            if(session?.user?.email == "demo@admin.com" ){
+                router.push('/admin/dashboard');
+            }
+
             if (session?.user?.email) {
                 try {
                     // const isAdmin = await getAdminMemberByEmail(session.user.email);

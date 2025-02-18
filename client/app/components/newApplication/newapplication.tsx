@@ -26,8 +26,30 @@ const PendingApplicationsList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const PendingApplications = await PendingtimeSlotApp(); // Assuming 'Pending' is the status for Pending applications
-                setApplications(PendingApplications.data);
+                const PendingApplications = [
+                    {
+                        applicationId: '1',
+                        date: '2025-02-20T10:00:00Z',
+                        startTime: '2025-02-20T10:00:00Z',
+                        endTime: '2025-02-20T12:00:00Z',
+                        volunteerId: 'volunteer1',
+                        status: 'Pending',
+                        note: 'First application for this slot',
+                        volunteerName: 'John Doe',
+                    },
+                    {
+                        applicationId: '2',
+                        date: '2025-02-21T14:00:00Z',
+                        startTime: '2025-02-21T14:00:00Z',
+                        endTime: '2025-02-21T16:00:00Z',
+                        volunteerId: 'volunteer2',
+                        status: 'Pending',
+                        note: 'Second application for this slot',
+                        volunteerName: 'Jane Smith',
+                    },
+                ];
+                // const PendingApplications = await PendingtimeSlotApp(); // Assuming 'Pending' is the status for Pending applications
+                setApplications(PendingApplications);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

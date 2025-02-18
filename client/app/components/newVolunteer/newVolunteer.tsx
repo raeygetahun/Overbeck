@@ -23,8 +23,25 @@ const PendingVolunteersList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const Pendingvolunteers = await PendingNewVolunteers(); // Assuming 'Pending' is the status for Pending volunteers
-                setvolunteers(Pendingvolunteers.data);
+                const Pendingvolunteers = [
+                    {
+                        volunteerId: '1',
+                        email: 'volunteer1@example.com',
+                        firstName: 'John',
+                        lastName: 'Doe',
+                        accountStatus: 'Pending',
+                    },
+                    {
+                        volunteerId: '2',
+                        email: 'volunteer2@example.com',
+                        firstName: 'Jane',
+                        lastName: 'Smith',
+                        accountStatus: 'Pending',
+                    },
+                ];
+
+                // const Pendingvolunteers = await PendingNewVolunteers(); // Assuming 'Pending' is the status for Pending volunteers
+                setvolunteers(Pendingvolunteers);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

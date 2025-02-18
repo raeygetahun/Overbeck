@@ -10,8 +10,8 @@ interface Appointment {
     volunteerName: string | null;
 }
 interface FetchAppointments {
-    success: true,
-    data: Array<Appointment>
+    success: true;
+    data: Array<Appointment>;
 }
 
 interface CalendarProps {
@@ -22,18 +22,67 @@ interface CalendarProps {
 const CalendarWithAppointments = ({ fetchAppointments, passedData }: CalendarProps) => {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
 
+    const volunteers = [
+        "John Doe",
+        "Jane Smith",
+        "Michael Brown",
+        "Sarah White",
+        "Emily Green"
+    ];
+
     useEffect(() => {
         const getAppointments = async () => {
             try {
-                const fetchedAppointments = await fetchAppointments(passedData as string);
-                setAppointments(fetchedAppointments.data);
+                const currentMonth = moment().month(); 
+                const demoAppointments: Appointment[] = [];
+
+                if (passedData == "demo@volunteer.com") {
+                    const volunteer = "John Doe"; 
+
+                    for (let day = 1; day <= moment().daysInMonth(); day = day + 3) {
+                        if (day % 2 == 0) {
+                            demoAppointments.push({
+                                applicationId: `${currentMonth + 1}-${day}-1`,
+                                startTime: moment().month(currentMonth).date(day).hour(11).minute(0).toISOString(),
+                                endTime: moment().month(currentMonth).date(day).hour(14).minute(0).toISOString(),
+                                volunteerName: volunteer, 
+                            });
+                        }
+                        else {
+                            demoAppointments.push({
+                                applicationId: `${currentMonth + 1}-${day}-2`,
+                                startTime: moment().month(currentMonth).date(day).hour(14).minute(0).toISOString(),
+                                endTime: moment().month(currentMonth).date(day).hour(17).minute(0).toISOString(),
+                                volunteerName: volunteer, 
+                            });
+                        }
+                    }
+                } else {
+                    for (let day = 1; day <= moment().daysInMonth(); day++) {
+                        demoAppointments.push({
+                            applicationId: `${currentMonth + 1}-${day}-1`,
+                            startTime: moment().month(currentMonth).date(day).hour(11).minute(0).toISOString(),
+                            endTime: moment().month(currentMonth).date(day).hour(14).minute(0).toISOString(),
+                            volunteerName: volunteers[(day - 1) % volunteers.length], 
+                        });
+
+                        demoAppointments.push({
+                            applicationId: `${currentMonth + 1}-${day}-2`,
+                            startTime: moment().month(currentMonth).date(day).hour(14).minute(0).toISOString(),
+                            endTime: moment().month(currentMonth).date(day).hour(17).minute(0).toISOString(),
+                            volunteerName: volunteers[day % volunteers.length], 
+                        });
+                    }
+                }
+
+                setAppointments(demoAppointments);
             } catch (error) {
                 console.error('Error fetching appointments:', error);
             }
         };
 
         getAppointments();
-    }, [fetchAppointments]);
+    }, [fetchAppointments, passedData]);
 
     const localizer = momentLocalizer(moment);
     const today = new Date();
@@ -52,24 +101,21 @@ const CalendarWithAppointments = ({ fetchAppointments, passedData }: CalendarPro
     };
 
     const formats = {
-        eventTimeRangeFormat: () => { 
-          return "";
+        eventTimeRangeFormat: () => {
+            return "";
         },
-      };
+    };
 
-    const eventStyleGetter = function() {
+    const eventStyleGetter = function () {
         var style = {
-            // backgroundColor: "black",
-            borderRadius: '0px',
-            // opacity: 0.8,
             color: 'white',
             border: '2px solid',
-            display: 'block'
+            display: 'block',
         };
         return {
             style: style
         };
-    }
+    };
 
     const events = appointments.map(appointment => ({
         id: appointment.applicationId,
@@ -84,7 +130,7 @@ const CalendarWithAppointments = ({ fetchAppointments, passedData }: CalendarPro
                 events={events}
                 {...initProps}
                 eventPropGetter={(eventStyleGetter)}
-                formats={formats} 
+                formats={formats}
             />
         </div>
     );
