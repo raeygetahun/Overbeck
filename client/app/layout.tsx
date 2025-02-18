@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import  SessionProvider from './SessionProvider'
+import Footer from './components/footer/footer'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +23,12 @@ export default function RootLayout({
         <link rel="icon" href="https://overbeck-museum.de/wp-content/uploads/2019/09/cropped-Overbeck-Museum-favicon-192x192.png" sizes="192x192" />
         <link rel="apple-touch-icon" href="https://overbeck-museum.de/wp-content/uploads/2019/09/cropped-Overbeck-Museum-favicon-180x180.png" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+        <Footer />
+      </body>
     </html>
   )
 }

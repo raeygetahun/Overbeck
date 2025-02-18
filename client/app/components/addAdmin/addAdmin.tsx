@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import signup from '../../utils/api/volunteerSignup';
+import signup from '../../utils/api/Admin/newAdmin';
+// import Loader from '../loader/loader';
 
-const Signup: React.FC = () => {
+const AddAdmin: React.FC = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [signupError, setSignupError] = useState<string>('');
+    const [signupMessage, setSignupMessage] = useState<string>('');
     const [passwordAgain, setPasswordAgain] = useState('');
 
     const router = useRouter();
@@ -17,20 +18,19 @@ const Signup: React.FC = () => {
         try {
             const response = await signup(email, password, firstName, lastName);
             if (response.success) {
-                alert("User signed up successfully!");
-                router.push('/signin');
+                setSignupMessage("Admin added successfully!");
             } else {
                 const errorData = JSON.parse(response.error ?? "{}");
-                setSignupError(errorData.error
+                setSignupMessage(errorData.error
                     || 'Signup failed. Please try again.');
             }
         } catch (error) {
-            setSignupError('An unexpected error occurred. Please try again later.');
+            setSignupMessage('An unexpected error occurred. Please try again later.');
         }
     };
 
     return (
-        <div className="px-6 py-12 lg:px-8 bg-gray-900">
+        <div className='bg-gray-900'>
             <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-8 bg-gray-900">
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -40,7 +40,7 @@ const Signup: React.FC = () => {
                             alt="Overbeck"
                         />
                         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-                            Sign up
+                            Add New Admin
                         </h2>
                     </div>
 
@@ -136,10 +136,10 @@ const Signup: React.FC = () => {
                                     disabled={(!email || !password || !passwordAgain) || (password !== passwordAgain)}
                                     className="disabled:opacity-40 flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                                 >
-                                    Sign Up
+                                    ADD
                                 </button>
                             </div>
-                            {signupError && <p className="text-red-500 text-center font-bold text-xl ">{signupError}</p>}
+                            <p className={`text-center font-bold text-xl ${signupMessage.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>{signupMessage}</p>
 
                             {/* <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                                 Sign Up
@@ -148,8 +148,9 @@ const Signup: React.FC = () => {
                     </div>
                 </div>
             </form>
+            {/* <Loader /> */}
         </div>
     );
 };
 
-export default Signup;
+export default AddAdmin;
