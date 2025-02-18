@@ -7,8 +7,6 @@ export default function Home() {
   const session = useSession({
     required: true,
     onUnauthenticated() {
-      // router.push('/admin/dashboard');
-
       redirect('/signin');
     },
   });
