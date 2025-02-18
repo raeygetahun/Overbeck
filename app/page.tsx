@@ -2,6 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react'; 
 
 export default function Home() {
   const session = useSession({
@@ -12,12 +13,15 @@ export default function Home() {
   });
   const router = useRouter();
 
-  if (session?.data?.user?.image) {
-    router.push('/admin/dashboard');
-  } else {
-    router.push('/volunteer/dashboard');
-  }
-  return (<></>)
+  useEffect(() => {
+    if (session?.data?.user?.image) {
+      router.push('/admin/dashboard');
+    } else {
+      router.push('/volunteer/dashboard');
+    }
+  }, [session, router]); 
+
+  return <></>;
 }
 
-Home.requireAuth = true
+Home.requireAuth = true;

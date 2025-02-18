@@ -10,7 +10,7 @@ import Navbar from '@/app/components/navbar/navbar';
 import AdminAppointment from "@/app/components/adminAppointment/adminAppointment"
 import AddAdmin from "@/app/components/addAdmin/addAdmin"
 import { useRouter } from 'next/navigation';
-
+import { useEffect } from 'react';
 
 
 
@@ -24,9 +24,13 @@ export default function Home() {
     const { data: sessionInfo } = useSession();
     const router = useRouter();
 
-    if (session.status==="authenticated" && !sessionInfo?.user?.image) {
-        router.push('/volunteer/dashboard');
-    }
+    useEffect(() => {
+        if (session.status === "authenticated" && !sessionInfo?.user?.image) {
+            router.push('/volunteer/dashboard');
+        }
+    }, [session, sessionInfo, router]);
+
+
     const [activeSection, setActiveSection] = useState('applications');
 
     // Function to handle switching active section

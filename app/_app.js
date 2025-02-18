@@ -1,4 +1,4 @@
-import Router from 'next/router';
+import Router from 'next/navigation';
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
 

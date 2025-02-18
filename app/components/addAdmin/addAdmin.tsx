@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import signup from '../../utils/api/Admin/newAdmin';
 // import Loader from '../loader/loader';
+import Image from 'next/image';
+
 
 const AddAdmin: React.FC = () => {
     const [password, setPassword] = useState('');
@@ -11,7 +12,6 @@ const AddAdmin: React.FC = () => {
     const [signupMessage, setSignupMessage] = useState<string>('');
     const [passwordAgain, setPasswordAgain] = useState('');
 
-    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -34,7 +34,7 @@ const AddAdmin: React.FC = () => {
             <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-8 bg-gray-900">
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                        <img
+                        <Image
                             className="mx-auto h-10 w-auto"
                             src="https://overbeck-museum.de/wp-content/uploads/2019/09/cropped-Overbeck-Museum-favicon-192x192.png"
                             alt="Overbeck"

@@ -36,7 +36,7 @@ const CalendarWithAppointments = ({ fetchAppointments, passedData }: CalendarPro
                 const currentMonth = moment().month(); 
                 const demoAppointments: Appointment[] = [];
 
-                if (passedData == "demo@volunteer.com") {
+                if (passedData == "volunteer@demo.com") {
                     const volunteer = "John Doe"; 
 
                     for (let day = 1; day <= moment().daysInMonth(); day = day + 3) {

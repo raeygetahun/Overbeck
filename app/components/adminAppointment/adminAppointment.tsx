@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import timeSlotApplication from '../../utils/api/Volunteer/timeslotApplication';
 import { allApprovedVolunteers } from '@/app/utils/api/Admin/allApprovedVolunteers';
+import Image from 'next/image';
 
 const AdminAppointment: React.FC = () => {
     const [signupInfo, setSignupInfo] = useState<string>('');
@@ -60,7 +61,7 @@ const AdminAppointment: React.FC = () => {
             <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-8 bg-gray-900">
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                        <img
+                        <Image
                             className="mx-auto h-10 w-auto"
                             src="https://overbeck-museum.de/wp-content/uploads/2019/09/cropped-Overbeck-Museum-favicon-192x192.png"
                             alt="Overbeck"

@@ -15,11 +15,11 @@ export const authOptions = {
       async authorize(credentials): Promise<any> {
         try {
 
-          if ((credentials as any).email === "demo@volunteer.com" && (credentials as any).password === "demo") {
-            return { email: "demo@volunteer.com", role: "volunteer", name:"John Doe" };
+          if ((credentials as any).email === "volunteer@demo.com" && (credentials as any).password === "demo") {
+            return { email: "volunteer@demo.com", role: "volunteer", name:"John Doe" };
           }
-          if ((credentials as any).email === "demo@admin.com" && (credentials as any).password === "demo") {
-            return { email: "demo@admin.com", role: "admin", image:'admin', name:"John Admin"};
+          if ((credentials as any).email === "admin@demo.com" && (credentials as any).password === "demo") {
+            return { email: "admin@demo.com", role: "admin", image:'admin', name:"John Admin"};
           }
           const userCredential = await signInWithEmailAndPassword(auth, (credentials as any).email || '', (credentials as any).password || '');
           const isAdmin = await getAdminMemberByEmail(userCredential.user.email)
